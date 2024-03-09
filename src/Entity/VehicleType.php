@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\VehicleTypeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VehicleTypeRepository::class)]
@@ -13,52 +14,60 @@ class VehicleType
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\OneToMany(targetEntity: Vehicle::class, mappedBy: "id")]
+    private $vehicles;
+
     #[ORM\Column(length: 255)]
-    private ?string $nama = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $keterangan = null;
+    private ?string $description = null;
 
     #[ORM\Column]
-    private ?bool $active = null;
+    private ?bool $status = null;
+
+    public function __construct()
+    {
+        $this->vehicles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNama(): ?string
+    public function getName(): ?string
     {
-        return $this->nama;
+        return $this->name;
     }
 
-    public function setNama(string $nama): static
+    public function setName(string $name): static
     {
-        $this->nama = $nama;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getKeterangan(): ?string
+    public function getDescription(): ?string
     {
-        return $this->keterangan;
+        return $this->description;
     }
 
-    public function setKeterangan(?string $keterangan): static
+    public function setDescription(?string $description): static
     {
-        $this->keterangan = $keterangan;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function isActive(): ?bool
+    public function isStatus(): ?bool
     {
-        return $this->active;
+        return $this->status;
     }
 
-    public function setActive(bool $active): static
+    public function setStatus(bool $status): static
     {
-        $this->active = $active;
+        $this->status = $status;
 
         return $this;
     }

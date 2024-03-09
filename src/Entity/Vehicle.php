@@ -11,69 +11,69 @@ class Vehicle
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id_kendaraan = null;
+    private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $id_jenis_kendaraan = null;
+    #[ORM\ManyToOne(targetEntity: VehicleType::class)]
+    #[ORM\JoinColumn(name: "vehicle_type_id", referencedColumnName: "id")]
+    private $vehicleType;
 
     #[ORM\Column(length: 255)]
-    private ?string $nama = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $keterangan = null;
+    private ?string $description = null;
 
-    #[ORM\Column(type: 'boolean')]
-    private bool $active = false;
+    #[ORM\Column]
+    private ?bool $status = null;
 
     public function getId(): ?int
     {
-        return $this->id_kendaraan;
+        return $this->id;
     }
 
-    public function getIdJenisKendaraan(): ?int
+    public function getVehicleType(): ?VehicleType
     {
-        return $this->id_jenis_kendaraan;
+        return $this->vehicleType;
     }
 
-    public function setIdJenisKendaraan(int $id_jenis_kendaraan): static
+    public function setVehicleType(?VehicleType $vehicleType): self
     {
-        $this->id_jenis_kendaraan = $id_jenis_kendaraan;
+        $this->vehicleType = $vehicleType;
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getNama(): ?string
+    public function getDescription(): ?string
     {
-        return $this->nama;
+        return $this->description;
     }
 
-    public function setNama(string $nama): static
+    public function setDescription(?string $description): static
     {
-        $this->nama = $nama;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getActive(): ?bool
+    public function isStatus(): ?bool
     {
-        return $this->active;
+        return $this->status;
     }
 
-    public function setActive(bool $active): static
+    public function setStatus(bool $status): static
     {
-        $this->active = $active;
-
-        return $this;
-    }
-
-    public function getKeterangan(): ?string
-    {
-        return $this->keterangan;
-    }
-
-    public function setKeterangan(?string $keterangan): static
-    {
-        $this->keterangan = $keterangan;
+        $this->status = $status;
 
         return $this;
     }
