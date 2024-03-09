@@ -32,7 +32,6 @@
             <tr>
                 <th class="font-medium text-left py-4 px-6">ID</th>
                 <th class="font-medium text-left py-4 px-6">Nama</th>
-                <th class="font-medium text-left py-4 px-6">Jenis</th>
                 <th class="font-medium text-left py-4 px-6">Keterangan</th>
                 <th class="font-medium text-left py-4 pr-6">Status</th>
             </tr>
@@ -44,11 +43,15 @@
                     <td class="py-4 px-6">{{ vehicleType.name }}</td>
                     <td class="py-4 px-6">{{ vehicleType.description }}</td>
                     <td class="py-4 pl-6">{{ vehicleType.status }}</td>
-                    <td class="text-gray-600 py-4 pr-6 text-right">
-                        <a href="" class="text-indigo-600 px-2">Edit</a>
-                        <button class="text-red-600 px-2">
-                            Delete
-                        </button>
+                    <td class="text-gray-600 py-4 pr-6 text-right flex items-center">
+                        <a href="{{ path('editVehicleType', { id: vehicleType.id }) }}" class="text-indigo-600 px-2">Edit</a>
+                        <form action="{{ path('deleteVehicleType', {'id': vehicleType.id}) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ vehicleType.id) }}">
+                            <button type="submit" class="text-red-600 px-2">
+                                Delete
+                            </button>
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
