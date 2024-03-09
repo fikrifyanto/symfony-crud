@@ -42,7 +42,13 @@
                     <td class="py-4 px-6">{{ vehicleType.id }}</td>
                     <td class="py-4 px-6">{{ vehicleType.name }}</td>
                     <td class="py-4 px-6">{{ vehicleType.description }}</td>
-                    <td class="py-4 pl-6">{{ vehicleType.status }}</td>
+                    <td class="py-4 pl-6">
+                        {% if vehicleType.status == 1 %}
+                            Aktif
+                        {% else %}
+                            Tidak Aktif
+                        {% endif %}
+                    </td>
                     <td class="text-gray-600 py-4 pr-6 text-right flex items-center">
                         <a href="{{ path('editVehicleType', { id: vehicleType.id }) }}" class="text-indigo-600 px-2">Edit</a>
                         <form action="{{ path('deleteVehicleType', {'id': vehicleType.id}) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
